@@ -31,25 +31,39 @@
 
 ## 📸 Screenshots
 
-![Repayment Screen](Data/screenshots/repayment.png)
-![Home Screen](Data/screenshots/home_screen.png)
+### 🔐 Authentication
+![Sign In](Data/screenshots/signin.png)
+
+### 🏠 Main Menu & Dashboard
 ![Main Menu](Data/screenshots/main-menu.png)
-![Sigh In](Data/screenshots/signin.png)
+![Home Screen](Data/screenshots/home_screen.png)
+
+### 🧑‍⚕️ Patients & Staff
 ![Patients](Data/screenshots/patients.png)
 ![Workers](Data/screenshots/workers.png)
+
+### 💊 Pharmacy & Prescriptions
 ![Pharmacy](Data/screenshots/pharmacy.png)
-![Diagnoses](Data/screenshots/diagnoses.png)
 ![Prescriptions](Data/screenshots/prescs.png)
-![Lab Tests](Data/screenshots/lab-result.png)
+
+### 🔬 Lab & Diagnostics
 ![Lab Requests](Data/screenshots/labtests.png)
-![Lab Results](Data/screenshots/lab-request.png)
+![Lab Results](Data/screenshots/lab-result.png)
+![Diagnoses](Data/screenshots/diagnoses.png)
+
+### 💵 Billing & Repayments
 ![Billings](Data/screenshots/billings.png)
+![Repayment Screen](Data/screenshots/repayment.png)
+
+### 🖥️ Server Interface
 ![Server](Data/screenshots/server.png)
-![Server1](Data/screenshots/server1.png)
-![Server2](Data/screenshots/server2.png)
-![Server3](Data/screenshots/server3.png)
-![Server4](Data/screenshots/server4.png)
+![Server 1](Data/screenshots/server1.png)
+![Server 2](Data/screenshots/server2.png)
+![Server 3](Data/screenshots/server3.png)
+![Server 4](Data/screenshots/server4.png)
+
+---
 
 ## 🎥 Demo Video
 
-[![For Visuals](https://img.shields.io/badge/▶️%20Watch%20Demo-blue?style=for-the-badge)](Data/demo/hms.mkv)
+[![▶️ Watch Demo](https://img.shields.io/badge/▶️%20Watch%20Demo-blue?style=for-the-badge)](Data/demo/hms.mkv)
