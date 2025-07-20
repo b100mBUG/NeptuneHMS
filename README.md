@@ -44,6 +44,11 @@
 ![Lab Requests](Data/screenshots/labtests.png)
 ![Lab Results](Data/screenshots/lab-request.png)
 ![Billings](Data/screenshots/billings.png)
+![Server](Data/screenshots/server.png)
+![Server1](Data/screenshots/server1.png)
+![Server2](Data/screenshots/server2.png)
+![Server3](Data/screenshots/server3.png)
+![Server4](Data/screenshots/server4.png)
 
 ## 🎥 Demo Video
 
