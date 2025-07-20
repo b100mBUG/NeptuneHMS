@@ -1,0 +1,464 @@
+<ClickableImage@ButtonBehavior+MagicBehavior+FitImage>:
+MDScreenManager:
+    id: sm
+    MDScreen:
+        name: "signin_screen"
+        ClickableImage:
+            source: f"{app.images_path}/back.png"
+            on_release: 
+                self.wobble()
+                app.show_dropdown(vals = ["Receptionist", "Pharmacist", "Doctor", "LabTech", "Admin"], caller = self, func = app.first_signin)
+
+    MDScreen:
+        name: "reception_screen"
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: root.pos
+                size: root.size
+        MDBoxLayout:
+            orientation: "vertical"
+            MDTopAppBar:
+                theme_bg_color: "Custom"
+                md_bg_color: [1, 1, 1, 1]
+                MDTopAppBarLeadingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "menu"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Patients", "Appointments", "Billings"], caller = self, func = app.rec_nav)
+                MDTopAppBarTitle:
+                    text: "Clinic Receiption Manager"
+                    pos_hint: {"center_x":.5}
+                    theme_text_color: "Custom"
+                    text_color: [0, .75, 0, 1]
+                    bold: True
+                MDTopAppBarTrailingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "account-circle-outline"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Admin", "Receptionist", "LabTech", "Pharmacist", "Doctor"], caller = self, func = app.change_user)
+            MDBoxLayout:
+                spacing: dp(10)
+                padding: dp(8)
+                size_hint_y: None
+                height: dp(100)
+                MDLabel:
+                    id: rec_dest_label
+                    text: "Patients"
+                    theme_font_size: "Custom"
+                    bold: True
+                    font_size: sp(30)
+                    theme_text_color: "Custom"
+                    text_color: [0, .75, 0, 1]
+                    size_hint_x: .2
+                MDTextField:
+                    mode: "filled"
+                    size_hint_x: .6
+                    pos_hint: {"center_y":.5}
+                    id: rec_search_field
+                    MDTextFieldHintText:
+                        id: rec_search_field_hint
+                        text: "search patients"
+                MDFabButton:
+                    id: rec_search_btn
+                    icon: "magnify"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    icon: "plus"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    id: rec_dialog_open
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    id: rec_sort_btn
+                    icon: "sort"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+            MDDivider:
+                color: "green"
+            MDBoxLayout:
+                orientation: "vertical"
+                MDBoxLayout:
+                    id: rec_cont_header
+                    size_hint_y: None
+                    height: dp(50)
+                RecycleView:
+                    id: rec_prev
+                    scroll_type: ["bars", "content"]
+                    bar_width: 10
+                    size_hint: 1, 1
+                    RecycleBoxLayout:
+                        id: rvb
+                        default_size: None, dp(300)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: "vertical"
+    MDScreen:
+        name: "admin_screen"
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: root.pos
+                size: root.size
+        MDBoxLayout:
+            orientation: "vertical"
+            MDTopAppBar:
+                MDTopAppBarLeadingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "menu"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Patients", "Appointments", "Workers", "Pharmacy", "Prescriptions", "Diagnoses", "Lab Tests", "Lab Requests", "Lab Results", "Services", "Billings", "Payments"], caller = self, func = app.adm_nav)
+                MDTopAppBarTitle:
+                    text: "Clinic Administrator Dashboard"
+                    pos_hint: {"center_x":.5}
+                    theme_text_color: "Custom"
+                    text_color: [0, .75, 0, 1]
+                    bold: True
+                MDTopAppBarTrailingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "account-circle-outline"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Admin", "Receptionist", "LabTech", "Pharmacist", "Doctor"], caller = self, func = app.change_user)
+            MDBoxLayout:
+                spacing: dp(10)
+                padding: dp(8)
+                size_hint_y: None
+                height: dp(100)
+                MDLabel:
+                    id: adm_dest_label
+                    text: "Patients"
+                    theme_font_size: "Custom"
+                    bold: True
+                    font_size: sp(30)
+                    theme_text_color: "Custom"
+                    text_color: [0, .75, 0, 1]
+                    size_hint_x: .2
+                MDTextField:
+                    mode: "filled"
+                    size_hint_x: .6
+                    pos_hint: {"center_y":.5}
+                    id: adm_search_field
+                    MDTextFieldHintText:
+                        id: adm_search_field_hint
+                        text: "search patients"
+                MDFabButton:
+                    id: adm_search_btn
+                    icon: "magnify"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    id: adm_export_btn
+                    icon: "file-export"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    icon: "plus"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    id: adm_dialog_open
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    id: adm_sort_btn
+                    icon: "sort"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+            MDDivider:
+                color: "green"
+            MDBoxLayout:
+                orientation: "vertical"
+                MDBoxLayout:
+                    id: adm_cont_header
+                    size_hint_y: None
+                    height: dp(50)
+                RecycleView:
+                    id: adm_prev
+                    scroll_type: ["bars", "content"]
+                    bar_width: 10
+                    size_hint: 1, 1
+                    RecycleBoxLayout:
+                        id: adrvb
+                        default_size: None, dp(300)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: "vertical" 
+
+    MDScreen:
+        name: "chemist_screen"
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: root.pos
+                size: root.size
+        MDBoxLayout:
+            orientation: "vertical"
+            MDTopAppBar:
+                MDTopAppBarLeadingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "menu"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Prescriptions", "Drugs", "Diagnoses"], caller = self, func = app.chem_nav)
+                MDTopAppBarTitle:
+                    text: "Clinic Pharmacy Manager"
+                    pos_hint: {"center_x":.5}
+                    theme_text_color: "Custom"
+                    text_color: [0, .75, 0, 1]
+                    bold: True
+                MDTopAppBarTrailingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "account-circle-outline"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Admin", "Receptionist", "LabTech", "Pharmacist", "Doctor"], caller = self, func = app.change_user)
+            MDBoxLayout:
+                spacing: dp(10)
+                padding: dp(8)
+                size_hint_y: None
+                height: dp(100)
+                MDLabel:
+                    id: chem_dest_label
+                    text: "Prescriptions"
+                    theme_font_size: "Custom"
+                    bold: True
+                    font_size: sp(30)
+                    theme_text_color: "Custom"
+                    text_color: [0, .75, 0, 1]
+                    size_hint_x: .2
+                MDTextField:
+                    mode: "filled"
+                    size_hint_x: .6
+                    pos_hint: {"center_y":.5}
+                    id: chem_search_field
+                    MDTextFieldHintText:
+                        id: chem_search_field_hint
+                        text: "search patients"
+                MDFabButton:
+                    id: chem_search_btn
+                    icon: "magnify"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    icon: "plus"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    id: chem_dialog_open
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    id: chem_sort_btn
+                    icon: "sort"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+            MDDivider:
+                color: "green"
+            MDBoxLayout:
+                orientation: "vertical"
+                MDBoxLayout:
+                    id: chem_cont_header
+                    size_hint_y: None
+                    height: dp(50)
+                RecycleView:
+                    id: chem_prev
+                    scroll_type: ["bars", "content"]
+                    bar_width: 10
+                    size_hint: 1, 1
+                    RecycleBoxLayout:
+                        id: chemrvb
+                        default_size: None, dp(300)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: "vertical"
+
+    MDScreen:
+        name: "diagnosis_screen"
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: root.pos
+                size: root.size
+        MDBoxLayout:
+            orientation: "vertical"
+            MDTopAppBar:
+                MDTopAppBarLeadingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "menu"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Prescriptions", "Lab Results", "Diagnoses", "Lab Requests"], caller = self, func = app.diag_nav)
+                MDTopAppBarTitle:
+                    text: "Clinic Diagnoses Manager"
+                    pos_hint: {"center_x":.5}
+                    theme_text_color: "Custom"
+                    text_color: [0, .75, 0, 1]
+                    bold: True
+                MDTopAppBarTrailingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "account-circle-outline"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Admin", "Receptionist", "LabTech", "Pharmacist", "Doctor"], caller = self, func = app.change_user)
+            MDBoxLayout:
+                spacing: dp(10)
+                padding: dp(8)
+                size_hint_y: None
+                height: dp(100)
+                MDLabel:
+                    id: diag_dest_label
+                    text: "Diagnoses"
+                    bold: True
+                    theme_font_size: "Custom"
+                    font_size: sp(30)
+                    theme_text_color: "Custom"
+                    text_color: [0, .75, 0, 1]
+                    size_hint_x: .2
+                MDTextField:
+                    mode: "filled"
+                    size_hint_x: .6
+                    pos_hint: {"center_y":.5}
+                    id: diag_search_field
+                    MDTextFieldHintText:
+                        id: diag_search_field_hint
+                        text: "search patients"
+                MDFabButton:
+                    id: diag_search_btn
+                    icon: "magnify"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    icon: "plus"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    id: diag_dialog_open
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    id: diag_sort_btn
+                    icon: "sort"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+            MDDivider:
+                color: "green"
+            MDBoxLayout:
+                orientation: "vertical"
+                MDBoxLayout:
+                    id: diag_cont_header
+                    size_hint_y: None
+                    height: dp(50)
+                RecycleView:
+                    id: diag_prev
+                    scroll_type: ["bars", "content"]
+                    bar_width: 10
+                    size_hint: 1, 1
+                    RecycleBoxLayout:
+                        id: diagrvb
+                        default_size: None, dp(300)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: "vertical"
+
+    MDScreen:
+        name: "lab_screen"
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: root.pos
+                size: root.size
+        MDBoxLayout:
+            orientation: "vertical"
+            MDTopAppBar:
+                MDTopAppBarLeadingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "menu"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Diagnoses", "Lab Results", "Lab Requests"], caller = self, func = app.lab_nav)
+                MDTopAppBarTitle:
+                    text: "Clinic Laboratory Manager"
+                    pos_hint: {"center_x":.5}
+                MDTopAppBarTrailingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "account-circle-outline"
+                        theme_icon_color: "Custom"
+                        icon_color: "green"
+                        on_release: app.show_dropdown(vals = ["Admin", "Receptionist", "LabTech", "Pharmacist", "Doctor"], caller = self, func = app.change_user)
+            MDBoxLayout:
+                spacing: dp(10)
+                padding: dp(8)
+                size_hint_y: None
+                height: dp(100)
+                MDLabel:
+                    id: lab_dest_label
+                    text: "Diagnoses"
+                    bold: True
+                    theme_text_color: "Custom"
+                    text_color: [0, .75, 0, 1]
+                    theme_font_size: "Custom"
+                    font_size: sp(30)
+                    size_hint_x: .2
+                MDTextField:
+                    mode: "filled"
+                    size_hint_x: .6
+                    pos_hint: {"center_y":.5}
+                    id: lab_search_field
+                    MDTextFieldHintText:
+                        id: lab_search_field_hint
+                        text: "search patients"
+                MDFabButton:
+                    id: lab_search_btn
+                    icon: "magnify"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    icon: "plus"
+                    id: lab_dialog_open
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+                MDIconButton:
+                    id: lab_sort_btn
+                    icon: "sort"
+                    theme_icon_color: "Custom"
+                    icon_color: "green"
+                    pos_hint: {"center_y":.5}
+            MDDivider:
+                color: "green"
+            MDBoxLayout:
+                orientation: "vertical"
+                MDBoxLayout:
+                    id: lab_cont_header
+                    size_hint_y: None
+                    height: dp(50)
+                RecycleView:
+                    id: lab_prev
+                    scroll_type: ["bars", "content"]
+                    bar_width: 10
+                    size_hint: 1, 1
+                    RecycleBoxLayout:
+                        id: labrvb
+                        default_size: None, dp(300)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: "vertical"
